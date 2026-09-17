@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8f0">
+  <title>Every Month With You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fff8f0;
+      --paper-deep: #f7eadf;
+      --ink: #342421;
+      --muted: #7e6961;
+      --coral: #d94f4f;
+      --coral-dark: #a93840;
+      --rose: #f5c8bd;
+      --sun: #f2c66d;
+      --line: rgba(52, 36, 33, .14);
+      --shadow: 0 18px 50px rgba(103, 50, 42, .13);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+    }
+    button, a { font: inherit; }
+    button { cursor: pointer; }
+    img { display: block; max-width: 100%; }
+    .serif { font-family: "Playfair Display", serif; }
+    .script { font-family: Sacramento, cursive; }
+
+    .site-nav {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px clamp(24px, 5vw, 76px);
+      color: #fff;
+    }
+    .brand { font: 30px Sacramento, cursive; color: #fff; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a { color: #fff; text-decoration: none; font-size: 13px; opacity: .88; }
+    .nav-links a:hover { opacity: 1; }
+
+    .hero {
+      min-height: 750px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background: linear-gradient(110deg, rgba(61, 28, 27, .84), rgba(169, 56, 64, .38)), url("img/43b37ae4-1f2d-4da9-a84a-6a994b98f0c1.jpg") center/cover;
+      transition: background-image .8s ease-in-out;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -5% -120px;
+      height: 220px;
+      background: var(--paper);
+      border-radius: 50% 50% 0 0 / 40% 40% 0 0;
+    }
+    .hero-content { width: min(900px, 88%); text-align: center; position: relative; z-index: 1; animation: rise .9s ease both; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .22em; font-size: 11px; font-weight: 700; opacity: .78; }
+    .hero h1 { margin: 15px 0 12px; font-size: clamp(58px, 11vw, 132px); line-height: .9; font-weight: 600; }
+    .hero p { max-width: 530px; margin: 0 auto 28px; font-size: clamp(17px, 2vw, 21px); opacity: .9; }
+    .primary-button, .outline-button {
+      border: 0; border-radius: 999px; padding: 14px 23px; font-weight: 700; transition: transform .2s, background .2s;
+    }
+    .primary-button { background: var(--sun); color: var(--ink); }
+    .outline-button { border: 1px solid var(--line); background: transparent; color: var(--ink); }
+    .primary-button:hover, .outline-button:hover { transform: translateY(-3px); }
+    .hero .primary-button:hover { background: #ffd98d; }
+
+    section { padding: 92px clamp(24px, 7vw, 110px); }
+    .section-heading { max-width: 680px; margin-bottom: 42px; }
+    .kicker { color: var(--coral-dark); text-transform: uppercase; letter-spacing: .17em; font-size: 11px; font-weight: 700; }
+    h2 { margin: 9px 0 12px; font-size: clamp(37px, 5vw, 62px); line-height: 1.05; font-weight: 600; }
+    .section-heading p { color: var(--muted); margin: 0; }
+
+    .counter-section { background: var(--paper-deep); text-align: center; }
+    .counter-section .section-heading { margin-inline: auto; }
+    .counter-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .counter-unit { min-width: 106px; padding: 18px 13px; border-top: 2px solid var(--coral); }
+    .counter-unit strong { display: block; color: var(--coral-dark); font: 600 42px/1 "Playfair Display", serif; }
+    .counter-unit span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .13em; }
+
+    .timeline { max-width: 960px; margin: 0 auto; position: relative; }
+    .timeline::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--line); }
+    .timeline-item { width: 50%; padding: 0 48px 45px 0; position: relative; }
+    .timeline-item:nth-child(even) { margin-left: 50%; padding: 0 0 45px 48px; }
+    .timeline-item::after { content: ""; position: absolute; top: 7px; right: -6px; width: 11px; height: 11px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 6px var(--paper); }
+    .timeline-item:nth-child(even)::after { right: auto; left: -5px; }
+    .timeline-date { color: var(--coral-dark); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .11em; }
+    .timeline-item h3 { margin: 8px 0 4px; font: 600 25px "Playfair Display", serif; }
+    .timeline-item p { margin: 0; color: var(--muted); }
+
+    .gallery-section { background: #f4dfd5; }
+    .gallery { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .photo-card { overflow: hidden; position: relative; min-height: 260px; background: #e6c8bc; box-shadow: var(--shadow); }
+    .photo-card:nth-child(1) { grid-column: span 5; min-height: 390px; }
+    .photo-card:nth-child(2) { grid-column: span 4; }
+    .photo-card:nth-child(3) { grid-column: span 3; }
+    .photo-card:nth-child(4) { grid-column: span 3; }
+    .photo-card:nth-child(5) { grid-column: span 5; }
+    .photo-card:nth-child(6) { grid-column: span 4; }
+    .photo-card:nth-child(7) { grid-column: span 4; }
+    .photo-card:nth-child(8) { grid-column: span 3; }
+    .photo-card:nth-child(9) { grid-column: span 5; }
+    .photo-card:nth-child(10) { grid-column: span 5; }
+    .photo-card:nth-child(11) { grid-column: span 4; }
+    .photo-card:nth-child(12) { grid-column: span 3; }
+    .photo-card:nth-child(13) { grid-column: span 4; }
+    .photo-card:nth-child(14) { grid-column: span 3; }
+    .photo-card:nth-child(15) { grid-column: span 5; }
+    .photo-card:nth-child(16) { grid-column: span 5; }
+    .photo-card:nth-child(17) { grid-column: span 4; }
+    .photo-card:nth-child(18) { grid-column: span 3; }
+    .photo-card:nth-child(19) { grid-column: span 4; }
+    .photo-card:nth-child(20) { grid-column: span 5; }
+    .photo-card:nth-child(21) { grid-column: span 3; }
+    .photo-card:nth-child(22) { grid-column: span 4; }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .photo-card:hover img { transform: scale(1.05); }
+    .photo-card figcaption { position: absolute; inset: auto 0 0; padding: 22px 17px 15px; color: #fff; background: linear-gradient(transparent, rgba(30, 16, 14, .78)); font-size: 13px; }
+
+    .reasons-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(40px, 9vw, 130px); align-items: center; max-width: 1100px; margin: auto; }
+    .reasons-art { min-height: 360px; padding: 35px; display: grid; place-items: center; background: var(--coral); color: #fff; transform: rotate(-3deg); box-shadow: var(--shadow); }
+    .reasons-art span { font-size: clamp(80px, 12vw, 145px); line-height: .7; }
+    .reason-box { min-height: 200px; display: grid; align-content: center; padding: 34px; border: 1px solid var(--line); background: rgba(255,255,255,.4); }
+    .reason-number { color: var(--coral-dark); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+    .reason-box blockquote { margin: 12px 0 24px; font: 600 clamp(24px, 3vw, 38px)/1.2 "Playfair Display", serif; }
+
+    .quiz-section { background: var(--ink); color: #fff; }
+    .quiz-section .section-heading p { color: #c9b7af; }
+    .quiz { max-width: 760px; }
+    .quiz-question { font: 600 28px "Playfair Display", serif; margin: 0 0 20px; }
+    .quiz-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .quiz-option { padding: 15px 18px; border: 1px solid rgba(255,255,255,.24); background: transparent; color: #fff; text-align: left; }
+    .quiz-option:hover, .quiz-option.selected { background: var(--coral); border-color: var(--coral); }
+    .quiz-feedback { min-height: 27px; color: var(--sun); margin: 18px 0 0; }
+
+    .coupon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+    .coupon { padding: 25px 18px; min-height: 160px; border: 1px dashed var(--coral-dark); background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+    .coupon strong { font: 600 24px "Playfair Display", serif; }
+    .coupon small { color: var(--muted); }
+
+    .letter-section { background: var(--rose); text-align: center; }
+    .letter { max-width: 720px; margin: auto; padding: clamp(30px, 6vw, 68px); background: var(--paper); box-shadow: var(--shadow); text-align: left; }
+    .letter .script { color: var(--coral-dark); font-size: 35px; }
+    .letter h2 { font-size: clamp(35px, 5vw, 60px); }
+    .letter p { color: var(--muted); }
+    .signature { margin-top: 28px; color: var(--coral-dark); font-size: 38px; }
+
+    footer { padding: 35px 24px; background: var(--coral-dark); color: #ffe9dc; text-align: center; font-size: 13px; }
+    footer strong { font: 26px Sacramento, cursive; }
+    .back-top { display: inline-block; margin-top: 12px; color: #ffe9dc; }
+    .final-reminder { padding: 1px 1px 1px; background: var(--rose); text-align: center; }
+    .final-reminder p { margin: 0 0 20px; color: var(--coral-dark); font: 45px Sacramento, cursive; }
+    .final-reminder img { width: min(520px, 15%); margin: auto; border: 10px solid #fff; box-shadow: var(--shadow); transform: rotate(2deg); }
+    .toast { position: fixed; left: 50%; bottom: 25px; z-index: 20; padding: 13px 20px; border-radius: 999px; background: var(--ink); color: #fff; transform: translate(-50%, 100px); transition: transform .3s; }
+    .toast.visible { transform: translate(-50%, 0); }
+    @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 700px) {
+      .site-nav { padding: 19px 20px; }
+      .nav-links { display: none; }
+      .hero { min-height: 680px; }
+      section { padding-block: 68px; }
+      .timeline::before { left: 5px; }
+      .timeline-item, .timeline-item:nth-child(even) { width: 100%; margin: 0; padding: 0 0 35px 31px; }
+      .timeline-item::after, .timeline-item:nth-child(even)::after { right: auto; left: 0; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .photo-card, .photo-card:nth-child(n) { grid-column: span 1; min-height: 210px; }
+      .photo-card:nth-child(1) { grid-row: span 2; }
+      .reasons-layout { grid-template-columns: 1fr; }
+      .reasons-art { min-height: 220px; }
+      .quiz-options { grid-template-columns: 1fr; }
+      .coupon-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="#top">our story</a>
+    <div class="nav-links">
+      <a href="#timeline">Timeline</a><a href="#memories">Memories</a><a href="#letter">Letter</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">A little corner of the internet, just for us</div>
+        <h1 class="serif">Every Month<br>With You</h1>
+        <p>To my favorite person, happy monthsary. Here is a tiny collection of the moments that make loving you my favorite thing.</p>
+        <a class="primary-button" href="#timeline">Open our story <span aria-hidden="true">&darr;</span></a>
+      </div>
+    </header>
+
+    <section class="counter-section" aria-label="Relationship duration">
+      <div class="section-heading">
+        <div class="kicker">Since our beginning</div>
+        <h2 class="serif">Time is sweeter with you.</h2>
+        <p>Time passed since you first said "I love you." back :')</p>
+      </div>
+      <div class="counter-grid">
+        <div class="counter-unit"><strong id="days">000</strong><span>Days</span></div>
+        <div class="counter-unit"><strong id="hours">00</strong><span>Hours</span></div>
+        <div class="counter-unit"><strong id="minutes">00</strong><span>Minutes</span></div>
+        <div class="counter-unit"><strong id="seconds">00</strong><span>Seconds</span></div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-heading">
+        <div class="kicker">The chapters so far</div>
+        <h2 class="serif">A timeline of us.</h2>
+        <p>For the moments that deserve their own little star.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item"><div class="timeline-date">Chapter 01 &middot; October 21, 2022</div><h3>When our story started</h3><p>That awkward moment the first time we met each other.</p></article>
+        <article class="timeline-item"><div class="timeline-date">Chapter 02 &middot; November 15, 2022</div><h3>The first memory I kept</h3><p>Replace this with a small detail that you still remember clearly.</p></article>
+        <article class="timeline-item"><div class="timeline-date">Chapter 03 &middot; April 18, 2023</div><h3>When it became us</h3><p>That quiet afternoon when you finally said those three words.</p></article>
+        <article class="timeline-item"><div class="timeline-date">Chapter 04 &middot; Today</div><h3>Still choosing you</h3><p>Add a recent milestone, an adventure, or a quiet ordinary day you loved.</p></article>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="memories">
+      <div class="section-heading">
+        <div class="kicker">Our little archive</div>
+        <h2 class="serif">Proof that ordinary days can glow.</h2>
+        <p>A small archive of our favorite faces, places, and silly little moments.</p>
+      </div>
+      <div class="gallery">
+            <figure class="photo-card"><img src="img/1adf222d-8495-4d6c-9b91-378d58f57915.jpg" alt="A playful car selfie"><figcaption>“Even the silly faces are my favorite.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/1d4e4ef3-c147-4c79-afaf-8c3977716fdd.jpg" alt="A cozy cuddle together"><figcaption>“My safest place is next to you.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/1ff0be99-1b05-4a41-9bf1-2df0be7b6c16.jpg" alt="Sharing a snack together"><figcaption>“Love, laughter, and stolen snacks.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/32b306e7-05b4-476d-bfb2-2e2f423d435e.jpg" alt="A nighttime portrait together"><figcaption>“You make every night brighter.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/43b37ae4-1f2d-4da9-a84a-6a994b98f0c1.jpg" alt="A nighttime selfie together"><figcaption>“My favorite adventure is us.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/65c010a6-fa6c-4087-bb56-8770cdc354bb.jpg" alt="A mirror hug together"><figcaption>“A little reflection of our love.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/6d2c1cba-2bdd-47d7-a7c1-c341ffb1ec05.jpg" alt="A playful snack moment together"><figcaption>“You make every bite more fun.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/b45652f9-d180-4a2f-83c4-cf943ff387b7.jpg" alt="Baking cookies together"><figcaption>“My favorite recipe is making memories with you.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/bf6482c3-9ee7-4b0b-8cdd-9cd862fa0ae8.jpg" alt="A close affectionate moment together"><figcaption>“Always close, always yours.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/fd3bacf9-4c9a-4756-8987-9740087f5d8b.jpg" alt="A smiling selfie together"><figcaption>“My favorite smile is yours.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/00f12c51-3fde-4356-843f-fe9da363a586.jpg" alt="A nighttime selfie together"><figcaption>“My favorite person under the night sky.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/236318f1-f073-4b49-b2c3-e03834f09ac9.jpg" alt="A playful close-up selfie in the car"><figcaption>“You make every car ride memorable.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/2435n6c7ty2893nr4h8s.jpg" alt="A playful selfie together indoors"><figcaption>“My favorite kind of silly.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/283476ctyn837.jpg" alt="A mirror selfie together"><figcaption>“A little reflection of us.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/2c195d2a-c8bc-4d36-9217-80f05cd83e85.jpg" alt="A close-up selfie together"><figcaption>“Always finding a way to get closer.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/3c9e4f20-769d-44f5-b5a5-83d0be103a51.jpg" alt="A close-up photo of us together"><figcaption>“The best kind of company.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/48357cnyth28734xd2ek.jpg" alt="Sharing coffee together"><figcaption>“Coffee tastes better with you.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/59aa164d-85af-4309-b5c8-e575ec9b8767.jpg" alt="A funny close-up selfie together"><figcaption>“You make me laugh without trying.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/8f92a5c1-1673-40dd-b096-98b1864ccdb3.jpg" alt="A restaurant selfie together"><figcaption>“Another meal, another memory.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/af81b1f1-2597-4a13-8616-936140a65a7a.jpg" alt="A close-up playful selfie together"><figcaption>“My favorite face to see.”</figcaption></figure>
+            <figure class="photo-card"><img src="img/ee6f5b17-a7ec-42a9-b86a-f2bd1e9016c3.jpg" alt="A blurry but happy selfie together"><figcaption>“Even the blurry moments are ours.”</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="reasons-layout">
+        <div class="reasons-art"><span aria-hidden="true">&hearts;</span></div>
+        <div>
+          <div class="kicker">A growing list</div>
+          <h2 class="serif">Reasons I love you.</h2>
+          <div class="reason-box">
+            <div class="reason-number" id="reason-number">REASON 01 / 06</div>
+            <blockquote id="reason-text">You make even the quietest days feel worth remembering.</blockquote>
+            <button class="outline-button" id="reason-button">Show me another</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quiz-section">
+      <div class="section-heading">
+        <div class="kicker" style="color: var(--sun)">A very serious test</div>
+        <h2 class="serif">How well do you know us?</h2>
+        <p>Replace the answers in the script with your own inside jokes and favorite things.</p>
+      </div>
+      <div class="quiz">
+        <p class="quiz-question" id="quiz-question">What is our ideal kind of date?</p>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-feedback" id="quiz-feedback" aria-live="polite"></div>
+        <button class="primary-button" id="next-question">Next question</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <div class="kicker">Redeemable anytime</div>
+        <h2 class="serif">A few promises for you.</h2>
+      </div>
+      <div class="coupon-grid">
+        <article class="coupon"><strong>One surprise date</strong><small>Good for one adventure of your choice.</small></article>
+        <article class="coupon"><strong>Unlimited hugs</strong><small>No expiration date. No questions asked.</small></article>
+        <article class="coupon" data-toast="That one is yours forever. Basta kaya pa ng mga kamay ko hahaha"><strong>30 minutes uninterrupted back and head massage</strong><small>Redeemable when you need a little comfort.</small></article>
+        <article class="coupon"><strong>My full attention</strong><small>For every story, dream, and tiny detail.</small></article>
+      </div>
+    </section>
+
+    <section class="letter-section" id="letter">
+      <div class="letter">
+        <div class="script">Dear Mahaal,</div>
+        <h2 class="serif">The part I want you to know.</h2>
+        <p>Thank you for being my favorite person, my safest place, and the best part of my everyday life. Somehow, even the most ordinary moments become special when I get to share them with you.</p>
+        <p>I love your smile, your little habits, your stories, and the way you make me feel at home just by being there. You are the person I want to tell everything to, from the biggest dreams to the smallest, silliest thoughts.</p>
+        <p>Happy monthsary, my love. Here is to more late-night conversations, random laughs, sweet memories, and choosing each other over and over again. I am so lucky that I still get to call you mine.</p>
+        <div class="signature script">Always yours, Carlo</div>
+      </div>
+    </section>
+    <section class="final-reminder" aria-label="A final cute reminder">
+        <img src="img/together.gif" alt="A cute reminder of us together">
+        <p>Together :')</p>
+    </section>
+  </main>
+
+  <footer><strong>made with love</strong><br><span>Happy monthsary, Mahaal.</span><br><a class="back-top" href="#top">Back to the beginning &uarr;</a></footer>
+  <div class="toast" id="toast" role="status">That one is yours forever.</div>
+
+
+  <script>
+    // EDIT THESE PLACEHOLDERS
+    const relationshipStart = "2023-04-18T00:00:00";
+    const heroImages = [
+      "img/00f12c51-3fde-4356-843f-fe9da363a586.jpg",
+      "img/1adf222d-8495-4d6c-9b91-378d58f57915.jpg",
+      "img/1d4e4ef3-c147-4c79-afaf-8c3977716fdd.jpg",
+      "img/1ff0be99-1b05-4a41-9bf1-2df0be7b6c16.jpg",
+      "img/236318f1-f073-4b49-b2c3-e03834f09ac9.jpg",
+      "img/2435n6c7ty2893nr4h8s.jpg",
+      "img/283476ctyn837.jpg",
+      "img/2c195d2a-c8bc-4d36-9217-80f05cd83e85.jpg",
+      "img/32b306e7-05b4-476d-bfb2-2e2f423d435e.jpg",
+      "img/3c9e4f20-769d-44f5-b5a5-83d0be103a51.jpg",
+      "img/43b37ae4-1f2d-4da9-a84a-6a994b98f0c1.jpg",
+      "img/48357cnyth28734xd2ek.jpg",
+      "img/59aa164d-85af-4309-b5c8-e575ec9b8767.jpg",
+      "img/65c010a6-fa6c-4087-bb56-8770cdc354bb.jpg",
+      "img/6d2c1cba-2bdd-47d7-a7c1-c341ffb1ec05.jpg",
+      "img/8f92a5c1-1673-40dd-b096-98b1864ccdb3.jpg",
+      "img/af81b1f1-2597-4a13-8616-936140a65a7a.jpg",
+      "img/b45652f9-d180-4a2f-83c4-cf943ff387b7.jpg",
+      "img/bf6482c3-9ee7-4b0b-8cdd-9cd862fa0ae8.jpg",
+      "img/ee6f5b17-a7ec-42a9-b86a-f2bd1e9016c3.jpg",
+      "img/f17558b2-95c3-4e09-90c2-be1ff13d4805.jpg",
+      "img/fd3bacf9-4c9a-4756-8987-9740087f5d8b.jpg"
+    ];
+    const hero = document.querySelector(".hero");
+    const shuffledHeroImages = [...heroImages].sort(() => Math.random() - 0.5);
+    let heroImageIndex = 0;
+    function showNextHeroImage() {
+      const image = shuffledHeroImages[heroImageIndex % shuffledHeroImages.length];
+      hero.style.background = `linear-gradient(110deg, rgba(61, 28, 27, .84), rgba(169, 56, 64, .38)), url("${image}") center/cover`;
+      heroImageIndex += 1;
+    }
+    showNextHeroImage();
+    setInterval(showNextHeroImage, 6000);
+
+    const reasons = [
+      "You make even the quietest days feel worth remembering.",
+      "You listen to the things I say, even when I say them badly.",
+      "You make me laugh when I forgot I needed to.",
+      "You are gentle with my heart.",
+      "You turn small moments into favorite memories.",
+      "You remember the little things I mention in passing.",
+      "You make me feel heard, understood, and accepted.",
+      "You bring out a softer and better version of me.",
+      "You make ordinary conversations feel special.",
+      "You are patient with me when I am still figuring things out.",
+      "You know how to make me smile without even trying.",
+      "You celebrate my small victories like they are your own.",
+      "You make distance feel smaller and time together feel priceless.",
+      "You are honest with me while still being kind.",
+      "You make me feel lucky in the most unexpected moments.",
+      "You make silence comfortable instead of awkward.",
+      "You inspire me to dream bigger and worry less.",
+      "You are the person I want to tell everything to first.",
+      "You make even difficult days easier to get through.",
+      "You have a beautiful way of caring for the people you love.",
+      "You make me excited about all the memories we have not made yet.",
+      "You make being myself feel easy.",
+      "You are my favorite notification, conversation, and hello.",
+      "You make love feel peaceful, fun, and real.",
+      "You are you, and somehow that is my favorite thing in the world."
+    ];
+    const quizQuestions = [
+      { question: "What is our ideal kind of date?", options: ["A cozy meal together", "A surprise adventure", "A movie and snacks", "All of the above"], answer: 3 },
+      { question: "Who is the better gift giver?", options: ["Me", "You", "It is a tie", "Still under investigation"], answer: 1 },
+      { question: "What is my favorite thing about us?", options: ["How we laugh", "How we grow", "How we show up", "All of the above"], answer: 3 },
+      { question: "Who usually says 'I love you' first?", options: ["Me", "You", "We say it at the same time", "Whoever misses the other more"], answer: 1 },
+      { question: "What is the best part of an ordinary day together?", options: ["The little conversations", "Sharing food", "Laughing at nothing", "All of these"], answer: 3 },
+      { question: "What is something I never get tired of?", options: ["Your voice", "Your smile", "Being close to you", "All of the above"], answer: 3 },
+      { question: "Where should we go for our next adventure?", options: ["Somewhere near the water", "A new restaurant", "A place neither of us has visited", "Anywhere, as long as we go together"], answer: 3 },
+      { question: "What do you do that makes me smile immediately?", options: ["Send a sweet message", "Make a silly face", "Remember a tiny detail", "Simply show up"], answer: 3 },
+      { question: "What is my favorite future plan with you?", options: ["More dates", "More trips", "More quiet days", "A lifetime of all of them"], answer: 3 },
+      { question: "What makes our relationship special?", options: ["The trust we share", "The way we support each other", "The fun we find everywhere", "Everything about us"], answer: 3 }
+    ];
+
+    const pad = value => String(value).padStart(2, "0");
+    function updateTimer() {
+      const elapsed = Math.max(0, Date.now() - new Date(relationshipStart).getTime());
+      const totalSeconds = Math.floor(elapsed / 1000);
+      document.querySelector("#days").textContent = String(Math.floor(totalSeconds / 86400)).padStart(3, "0");
+      document.querySelector("#hours").textContent = pad(Math.floor(totalSeconds / 3600) % 24);
+      document.querySelector("#minutes").textContent = pad(Math.floor(totalSeconds / 60) % 60);
+      document.querySelector("#seconds").textContent = pad(totalSeconds % 60);
+    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    let reasonIndex = 0;
+    document.querySelector("#reason-button").addEventListener("click", () => {
+      reasonIndex = (reasonIndex + 1) % reasons.length;
+      document.querySelector("#reason-number").textContent = `REASON ${pad(reasonIndex + 1)} / ${pad(reasons.length)}`;
+      document.querySelector("#reason-text").textContent = reasons[reasonIndex];
+    });
+
+    let quizIndex = 0;
+    function renderQuestion() {
+      const current = quizQuestions[quizIndex];
+      document.querySelector("#quiz-question").textContent = current.question;
+      document.querySelector("#quiz-feedback").textContent = "";
+      document.querySelector("#quiz-options").innerHTML = current.options.map((option, index) => `<button class="quiz-option" data-index="${index}">${option}</button>`).join("");
+      document.querySelectorAll(".quiz-option").forEach(button => button.addEventListener("click", () => {
+        const correct = Number(button.dataset.index) === current.answer;
+        document.querySelectorAll(".quiz-option").forEach(item => item.classList.remove("selected"));
+        button.classList.add("selected");
+        document.querySelector("#quiz-feedback").textContent = correct ? "Correct. You really are my person." : "Close enough. I love you anyway.";
+      }));
+    }
+    renderQuestion();
+    document.querySelector("#next-question").addEventListener("click", () => {
+      quizIndex = (quizIndex + 1) % quizQuestions.length;
+      renderQuestion();
+    });
+
+    document.querySelectorAll(".coupon").forEach(coupon => coupon.addEventListener("click", () => {
+      const toast = document.querySelector("#toast");
+      toast.textContent = coupon.dataset.toast || "That one is yours forever.";
+      toast.classList.add("visible");
+      setTimeout(() => document.querySelector("#toast").classList.remove("visible"), 2200);
+    }));
+  </script>
+</body>
+</html>
